@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/new_file.css"/>
+		<script src="js/anime.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="nav">
+			<p>导航栏</p>
+		</div>
+		<div class="big2"></div>
+		<div class="big"></div>
+		<div class="index">
+			<div class="cont">
+				<p style="font-size: 60px;" class="p1">一条大虫</p>
+				<p style="font-size: 18px;font-weight: bold;" class="p2">此网页是一条大虫平时的创意或者练习作品集合处</p>
+				<div class="but">
+					<p style="opacity: 1;">start now</p>
+				</div>
+			</div>
+		</div>
+		<div class="bot">
+			<ul>
+				<li onclick="to()"><div class="a"></div><p>手风琴菜单栏</p></li>
+				<li onclick="to2()"><div class="a"></div><p>单html多页</p></div></li>
+				<li><div class="a"></div></li>
+				<li><div class="a"></div></li>
+				
+			</ul>
+		</div>
+	</body>
+	<script type="text/javascript">
+		function to(){
+			window.location.href="下滑选项/index.html"
+		}
+		function to2(){
+			window.location.href="不同tab/index.html"
+		}
+		function methed(){
+			anime({
+				targets: '.index',
+				translateY: -30,
+				easing: 'easeInOutQuad',
+				duration: 1500
+			});
+			anime({
+				targets: '.big2',
+				translateY: -800,
+				easing: 'easeInOutQuad',
+				duration: 1500,
+			});
+			anime({
+				targets: '.big',
+				translateY: -1600,
+				easing: 'easeInOutQuad',
+				duration: 1500,
+			});
+			anime({
+				targets: '.p1',
+				translateY: -15,
+				easing: 'easeInOutQuad',
+				duration: 1000,
+				opacity: 1,
+				delay: 1000,
+				scale: 0.9
+			});
+			anime({
+				targets: '.p2',
+				translateY: -15,
+				easing: 'easeInOutQuad',
+				duration: 1000,
+				opacity: 1,
+				delay: 1000,
+				scale: 0.9
+			});
+			anime({
+				targets: '.but',
+				translateY: -15,
+				easing: 'easeInOutQuad',
+				duration: 1000,
+				opacity: 1,
+				delay: 1000
+			});
+		};
+		methed();
+	</script>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="./css/index.css" />
+	</head>
+	<body>
+		<nav>
+			<ul class="ul1">
+				<li class="temp">商品介绍</li>
+				<li>规格与包装</li>
+				<li>售后保障</li>
+				<li>商品评价</li>
+				<li>手机社区</li>
+			</ul>
+			<div class="item" style="display: block;">
+				<img src="img/1.png" >
+			</div>
+			<div class="item">
+				<img src="img/2.png" >
+			</div>
+			<div class="item">
+				<img src="img/3.png" >
+			</div>
+			<div class="item">
+				<img src="img/4.png" >
+			</div>
+			<div class="item">
+				<img src="img/5.png" >
+			</div>
+		</nav>
+	</body>
+	<script type="text/javascript">
+		var li = document.querySelectorAll("li");
+		for(var i =0;i < li.length; i ++){
+			li[i].setAttribute('index',i);
+				li[i].onclick = function(){
+					for(var i =0;i<li.length;i++){
+						li[i].className = '';
+					}
+					this.className = 'li2';
+					var items =document.querySelectorAll('.item');
+					var index = this.getAttribute('index');
+					for(var i =0;i<items.length;i++){
+						items[i].style.display='none'
+					}
+					items[index].style.display='block';
+				}
+		}
+	</script>
+</html>

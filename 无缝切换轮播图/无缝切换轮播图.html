@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .screen {
+            position: absolute;
+            left: 400px;
+            top: 0;
+            width: 600px;
+            height: 400px;
+            overflow: hidden;
+            background-color: red;
+        }
+        
+        .screen_img {
+            position: absolute;
+            top: 0;
+            left: -600px;
+            width: 5000px;
+        }
+        
+        .screen_img li {
+            list-style: none;
+            float: left;
+        }
+        
+        img {
+            width: 600px;
+            height: 400px;
+        }
+        
+        .left,
+        .right {
+            position: absolute;
+            top: 180px;
+            cursor: pointer;
+            z-index: 99;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            right: 0px;
+        }
+        
+        .but ul {
+            position: absolute;
+            top: 350px;
+            left: 200px;
+        }
+        
+        .but ul li {
+            float: left;
+            width: 20px;
+            height: 20px;
+            list-style: none;
+            background-color: rgba(0, 0, 0, 0.9);
+            margin-left: 10px;
+            text-align: center;
+            line-height: 20px;
+            color: white;
+            cursor: pointer;
+        }
+        
+        .choose {
+            background-color: red !important
+        }
+    </style>
+</head>
+
+<body>
+    <div class="screen">
+        <ul class="screen_img">
+            <li><img src="./img/5.jpg" alt="" srcset=""></li>
+            <li><img src="./img/1.jpg" alt="" srcset=""></li>
+            <li><img src="./img/2.jpg" alt="" srcset=""></li>
+            <li><img src="./img/3.jpg" alt="" srcset=""></li>
+            <li><img src="./img/4.jpg" alt="" srcset=""></li>
+            <li><img src="./img/5.jpg" alt="" srcset=""></li>
+            <li><img src="./img/1.jpg" alt="" srcset=""></li>
+        </ul>
+        <div class="left"></div>
+        <div class="right"></div>
+        <div class="but">
+            <ul id="pageLi">
+                <li class="choose">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+            </ul>
+        </div>
+    </div>
+
+
+</body>
+<script>
+    let screen = document.querySelector('.screen')
+    let ul = document.querySelector('.screen_img')
+    let left = document.querySelector('.left')
+    let right = document.querySelector('.right')
+    let currentPageIndex = 0
+    screen.addEventListener('mouseover', function() {
+        left.style.display = 'block'
+        right.style.display = 'block'
+    })
+    screen.addEventListener('mouseout', function() {
+        left.style.display = 'none'
+        right.style.display = 'none'
+    })
+    let pageLi = document.querySelector('#pageLi').children
+    for (let i = 0; i < pageLi.length; i++) {
+        pageLi[i].setAttribute('pageIndex', i)
+        pageLi[i].onclick = liClick
+    }
+
+    function liClick() {
+        let pi = parseInt(this.getAttribute('pageindex'))
+        currentPageIndex = pi
+        for (let i = 0; i < pageLi.length; i++) {
+            pageLi[i].className = ''
+        }
+        this.className = 'choose'
+        animate(ul, -600 * (pi + 1))
+    }
+
+    right.addEventListener('click', function() {
+        if (currentPageIndex == 4) {
+            animate(ul, -3600)
+            currentPageIndex = 0
+            for (let i = 0; i < pageLi.length; i++) {
+                pageLi[i].className = ''
+            }
+            pageLi[0].className = 'choose'
+        } else {
+            pageLi[1 + currentPageIndex].onclick()
+        }
+    })
+    left.addEventListener('click', function() {
+        if (currentPageIndex == 0) {
+            animate(ul, 0)
+            currentPageIndex = 4
+            for (let i = 0; i < pageLi.length; i++) {
+                pageLi[i].className = ''
+            }
+            pageLi[4].className = 'choose'
+        } else {
+            pageLi[-1 + currentPageIndex].onclick()
+        }
+    })
+
+    function animate(obj, target, callback) {
+        if (target == -3600) {
+            clearInterval(obj.timer)
+            obj.timer = setInterval(function() {
+                var step = (target - obj.offsetLeft) / 12;
+                step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                obj.style.left = obj.offsetLeft + step + 'px';
+                console.log(obj.style.left);
+                if (obj.offsetLeft == target) {
+                    obj.style.left = '-600px'
+                    clearInterval(obj.timer);
+                    // callback && callback();
+                }
+            }, 9)
+
+        } else if (target == 0) {
+            clearInterval(obj.timer)
+            obj.timer = setInterval(function() {
+                var step = (target - obj.offsetLeft) / 12;
+                step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                obj.style.left = obj.offsetLeft + step + 'px';
+                console.log(obj.style.left);
+                if (obj.offsetLeft == target) {
+                    obj.style.left = '-3000px'
+                    clearInterval(obj.timer);
+                    // callback && callback();
+                }
+            }, 9)
+        } else {
+            clearInterval(obj.timer)
+            obj.timer = setInterval(function() {
+                var step = (target - obj.offsetLeft) / 12;
+                step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                obj.style.left = obj.offsetLeft + step + 'px';
+                if (obj.offsetLeft == target) {
+                    clearInterval(obj.timer);
+                    // callback && callback();
+                }
+            }, 9)
+        }
+
+    };
+    setInterval(() => {
+        if (currentPageIndex == 4) {
+            animate(ul, -3600)
+            currentPageIndex = 0
+            for (let i = 0; i < pageLi.length; i++) {
+                pageLi[i].className = ''
+            }
+            pageLi[0].className = 'choose'
+        } else {
+            pageLi[1 + currentPageIndex].onclick()
+        }
+    }, 3000);
+</script>
+
+</html>

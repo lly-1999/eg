@@ -110,19 +110,29 @@
 
 </body>
 <script>
+    let autop = null
     let screen = document.querySelector('.screen')
     let ul = document.querySelector('.screen_img')
     let left = document.querySelector('.left')
     let right = document.querySelector('.right')
     let currentPageIndex = 0
+
+    let autoP = setInterval(() => {
+        right.onclick()
+    }, 3000);
     screen.addEventListener('mouseover', function() {
         left.style.display = 'block'
         right.style.display = 'block'
+        clearInterval(autoP)
     })
     screen.addEventListener('mouseout', function() {
         left.style.display = 'none'
         right.style.display = 'none'
+        autoP = setInterval(() => {
+            right.onclick()
+        }, 3000);
     })
+
     let pageLi = document.querySelector('#pageLi').children
     for (let i = 0; i < pageLi.length; i++) {
         pageLi[i].setAttribute('pageIndex', i)
@@ -139,7 +149,7 @@
         animate(ul, -600 * (pi + 1))
     }
 
-    right.addEventListener('click', function() {
+    right.onclick = function() {
         if (currentPageIndex == 4) {
             animate(ul, -3600)
             currentPageIndex = 0
@@ -150,8 +160,8 @@
         } else {
             pageLi[1 + currentPageIndex].onclick()
         }
-    })
-    left.addEventListener('click', function() {
+    }
+    left.onclick = function() {
         if (currentPageIndex == 0) {
             animate(ul, 0)
             currentPageIndex = 4
@@ -162,7 +172,7 @@
         } else {
             pageLi[-1 + currentPageIndex].onclick()
         }
-    })
+    }
 
     function animate(obj, target, callback) {
         if (target == -3600) {
@@ -171,7 +181,6 @@
                 var step = (target - obj.offsetLeft) / 12;
                 step = step > 0 ? Math.ceil(step) : Math.floor(step);
                 obj.style.left = obj.offsetLeft + step + 'px';
-                console.log(obj.style.left);
                 if (obj.offsetLeft == target) {
                     obj.style.left = '-600px'
                     clearInterval(obj.timer);
@@ -204,20 +213,7 @@
                 }
             }, 9)
         }
-
     };
-    setInterval(() => {
-        if (currentPageIndex == 4) {
-            animate(ul, -3600)
-            currentPageIndex = 0
-            for (let i = 0; i < pageLi.length; i++) {
-                pageLi[i].className = ''
-            }
-            pageLi[0].className = 'choose'
-        } else {
-            pageLi[1 + currentPageIndex].onclick()
-        }
-    }, 3000);
 </script>
 
 </html>

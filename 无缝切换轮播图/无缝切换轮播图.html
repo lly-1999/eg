@@ -14,7 +14,7 @@
         
         .screen {
             position: absolute;
-            left: 400px;
+            left: 470px;
             top: 0;
             width: 600px;
             height: 400px;
@@ -45,7 +45,7 @@
             top: 180px;
             cursor: pointer;
             z-index: 99;
-            width: 40px;
+            width: 25px;
             height: 40px;
             background-color: rgba(0, 0, 0, 0.9);
         }
@@ -61,15 +61,16 @@
         .but ul {
             position: absolute;
             top: 350px;
-            left: 200px;
+            left: 235px;
         }
         
         .but ul li {
             float: left;
-            width: 20px;
-            height: 20px;
+            width: 14px;
+            height: 14px;
+            border-radius: 14px;
             list-style: none;
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(255, 255, 255, 0.3);
             margin-left: 10px;
             text-align: center;
             line-height: 20px;
@@ -77,8 +78,27 @@
             cursor: pointer;
         }
         
+        .but ul li span {
+            margin-bottom: 5px;
+            text-align: center;
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 8px;
+        }
+        
+        .span_choose {
+            margin-bottom: 4px;
+            text-align: center;
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+        }
+        
         .choose {
-            background-color: red !important
+            background-color: rgba(255, 255, 255, 0.5) !important
         }
     </style>
 </head>
@@ -98,11 +118,21 @@
         <div class="right"></div>
         <div class="but">
             <ul id="pageLi">
-                <li class="choose">1</li>
-                <li>2</li>
-                <li>3</li>
-                <li>4</li>
-                <li>5</li>
+                <li class="choose">
+                    <span class="span_choose"></span>
+                </li>
+                <li>
+                    <span></span>
+                </li>
+                <li>
+                    <span></span>
+                </li>
+                <li>
+                    <span></span>
+                </li>
+                <li>
+                    <span></span>
+                </li>
             </ul>
         </div>
     </div>
@@ -136,7 +166,7 @@
     let pageLi = document.querySelector('#pageLi').children
     for (let i = 0; i < pageLi.length; i++) {
         pageLi[i].setAttribute('pageIndex', i)
-        pageLi[i].onclick = liClick
+        pageLi[i].onmouseover = liClick
     }
 
     function liClick() {
@@ -144,8 +174,10 @@
         currentPageIndex = pi
         for (let i = 0; i < pageLi.length; i++) {
             pageLi[i].className = ''
+            pageLi[i].children[0].className = ''
         }
         this.className = 'choose'
+        this.children[0].className = 'span_choose'
         animate(ul, -600 * (pi + 1))
     }
 
@@ -155,10 +187,12 @@
             currentPageIndex = 0
             for (let i = 0; i < pageLi.length; i++) {
                 pageLi[i].className = ''
+                pageLi[i].children[0].className = ''
             }
             pageLi[0].className = 'choose'
+            pageLi[0].children[0].className = 'span_choose'
         } else {
-            pageLi[1 + currentPageIndex].onclick()
+            pageLi[1 + currentPageIndex].onmouseover()
         }
     }
     left.onclick = function() {
@@ -167,10 +201,12 @@
             currentPageIndex = 4
             for (let i = 0; i < pageLi.length; i++) {
                 pageLi[i].className = ''
+                pageLi[i].children[0].className = ''
             }
             pageLi[4].className = 'choose'
+            pageLi[4].children[0].className = 'span_choose'
         } else {
-            pageLi[-1 + currentPageIndex].onclick()
+            pageLi[-1 + currentPageIndex].onmouseover()
         }
     }
 
